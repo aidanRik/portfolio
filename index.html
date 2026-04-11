@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aidan — Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Georgia, serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #111;
+      background: #fff;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 32px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    nav .logo {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 24px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #111;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 80px 0 60px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #555;
+      max-width: 540px;
+      margin-bottom: 32px;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 14px;
+      text-decoration: none;
+      border: 1px solid #111;
+      color: #111;
+      border-radius: 4px;
+    }
+
+    .btn:hover {
+      background: #111;
+      color: #fff;
+    }
+
+    .btn-primary {
+      background: #111;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #333;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 64px 0;
+      border-top: 1px solid #eee;
+    }
+
+    section h2 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #999;
+      margin-bottom: 32px;
+    }
+
+    /* ── ABOUT ── */
+    .about p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .project-card {
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 24px;
+    }
+
+    .project-card .tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #999;
+      margin-bottom: 8px;
+    }
+
+    .project-card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .project-card p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    /* ── CONTACT ── */
+    .contact p {
+      font-size: 17px;
+      color: #333;
+      margin-bottom: 24px;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px 0;
+      border-top: 1px solid #eee;
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="logo">Aidan</span>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Cognitive Science &amp;<br>Machine Learning</h1>
+    <p>
+      I'm a graduating senior at UC San Diego building at the intersection
+      of AI, product design, and human behavior.
+    </p>
+    <div class="hero-links">
+      <a href="#projects" class="btn btn-primary">See my work</a>
+      <a href="#contact" class="btn">Get in touch</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <h2>About</h2>
+    <p>
+      I study Cognitive Science with a focus in Machine Learning and a minor in
+      Computer Science at UCSD. I'm interested in how intelligent systems can
+      be designed to feel intuitive and human — whether that's an AI product,
+      a mobile app, or a data pipeline. Outside of that, I'm a Division I
+      swimmer and have served as team captain.
+    </p>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="tag">Mobile · AI</div>
+        <h3>receipt.ai</h3>
+        <p>
+          A receipt-splitting app for friend groups using OCR and Venmo integration.
+          Built with React Native and Google Cloud Vision.
+        </p>
+      </div>
+
+      <div class="project-card">
+        <div class="tag">Web · Design</div>
+        <h3>Tritons Aquatic Club</h3>
+        <p>
+          Club website built to meet USA Swimming Safe Sport hosting requirements.
+          Focused on clear information architecture for families and officials.
+        </p>
+      </div>
+
+      <div class="project-card">
+        <div class="tag">Game · JS</div>
+        <h3>Space Maze Sabotage</h3>
+        <p>
+          A two-player browser game with procedural maze generation and
+          real-time sabotage mechanics. Built in a single HTML5 canvas file.
+        </p>
+      </div>
+
+      <div class="project-card">
+        <div class="tag">Add a project</div>
+        <h3>Your next project</h3>
+        <p>
+          Placeholder for a future project. Replace this card with something
+          you're working on or proud of.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <h2>Contact</h2>
+    <p>
+      I'm currently looking for full-time roles in AI/software engineering
+      and business analytics. Feel free to reach out.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:your@email.com" class="btn">Email</a>
+      <a href="https://linkedin.com/in/yourhandle" class="btn" target="_blank">LinkedIn</a>
+      <a href="https://github.com/yourhandle" class="btn" target="_blank">GitHub</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Aidan. Built with HTML & CSS.</p>
+  </footer>
+
+</body>
+</html>

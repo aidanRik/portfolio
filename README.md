@@ -1,1 +1,1 @@
-[## My Portfolio](https://aidanrik.github.io/portfolio/)
+[My Portfolio](https://aidanrik.github.io/portfolio/)

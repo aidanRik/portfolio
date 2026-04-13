@@ -4,193 +4,483 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aidan — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --sand:    #e8dcc8;
+      --stone:   #c4b49a;
+      --earth:   #8b7355;
+      --bark:    #4a3728;
+      --deep:    #2a1f16;
+      --water:   #4a7c8e;
+      --foam:    #a8c4cc;
+      --moss:    #6b7c4a;
+      --cream:   #f5f0e8;
+      --text:    #2a1f16;
+      --muted:   #8b7355;
     }
 
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: Georgia, serif;
-      font-size: 16px;
-      line-height: 1.6;
-      color: #111;
-      background: #fff;
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 0 24px;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── WATER CANVAS ── */
+    #water-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.18;
     }
 
     /* ── NAV ── */
     nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 32px 0;
-      border-bottom: 1px solid #eee;
+      padding: 28px 56px;
     }
 
-    nav .logo {
-      font-size: 18px;
-      font-weight: bold;
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--bark);
+      letter-spacing: 0.04em;
     }
 
     nav ul {
       list-style: none;
       display: flex;
-      gap: 24px;
+      gap: 36px;
     }
 
     nav a {
       text-decoration: none;
-      color: #111;
-      font-size: 14px;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--earth);
+      transition: color 0.3s;
     }
 
-    nav a:hover {
-      text-decoration: underline;
+    nav a:hover { color: var(--bark); }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      overflow: hidden;
+    }
+
+    /* wave divider bottom of each section */
+    section::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0; right: 0;
+      height: 80px;
+      clip-path: ellipse(55% 100% at 50% 0%);
+      z-index: 2;
     }
 
     /* ── HERO ── */
-    .hero {
-      padding: 80px 0 60px;
+    #hero {
+      background: var(--cream);
+      flex-direction: column;
+      text-align: center;
+      padding: 120px 48px 80px;
     }
 
-    .hero h1 {
-      font-size: 48px;
-      line-height: 1.15;
-      margin-bottom: 20px;
+    #hero::after { background: var(--cream); }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--water);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: riseUp 1s 0.2s ease forwards;
     }
 
-    .hero p {
-      font-size: 18px;
-      color: #555;
-      max-width: 540px;
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(64px, 10vw, 128px);
+      font-weight: 700;
+      line-height: 0.95;
+      color: var(--bark);
       margin-bottom: 32px;
+      opacity: 0;
+      animation: riseUp 1s 0.4s ease forwards;
     }
 
-    .hero-links {
-      display: flex;
+    .hero-name em {
+      font-style: italic;
+      color: var(--water);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.7;
+      margin: 0 auto 48px;
+      opacity: 0;
+      animation: riseUp 1s 0.6s ease forwards;
+    }
+
+    .hero-cta {
+      display: inline-flex;
       gap: 16px;
-      flex-wrap: wrap;
+      opacity: 0;
+      animation: riseUp 1s 0.8s ease forwards;
     }
 
     .btn {
       display: inline-block;
-      padding: 10px 20px;
-      font-size: 14px;
-      text-decoration: none;
-      border: 1px solid #111;
-      color: #111;
-      border-radius: 4px;
-    }
-
-    .btn:hover {
-      background: #111;
-      color: #fff;
-    }
-
-    .btn-primary {
-      background: #111;
-      color: #fff;
-    }
-
-    .btn-primary:hover {
-      background: #333;
-    }
-
-    /* ── SECTIONS ── */
-    section {
-      padding: 64px 0;
-      border-top: 1px solid #eee;
-    }
-
-    section h2 {
+      padding: 13px 28px;
       font-size: 13px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #999;
-      margin-bottom: 32px;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .btn-solid {
+      background: var(--bark);
+      color: var(--cream);
+    }
+
+    .btn-solid:hover { background: var(--deep); }
+
+    .btn-outline {
+      border: 1px solid var(--earth);
+      color: var(--earth);
+    }
+
+    .btn-outline:hover {
+      background: var(--earth);
+      color: var(--cream);
+    }
+
+    /* ripple rings */
+    .ripple-rings {
+      position: absolute;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 120px;
+      pointer-events: none;
+    }
+
+    .ring {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid var(--foam);
+      opacity: 0;
+      animation: ripple 4s ease-out infinite;
+    }
+
+    .ring:nth-child(1) { width: 80px;  height: 30px;  animation-delay: 0s; }
+    .ring:nth-child(2) { width: 160px; height: 55px;  animation-delay: 0.8s; }
+    .ring:nth-child(3) { width: 260px; height: 85px;  animation-delay: 1.6s; }
+    .ring:nth-child(4) { width: 380px; height: 115px; animation-delay: 2.4s; }
+
+    @keyframes ripple {
+      0%   { opacity: 0.7; transform: translate(-50%, -50%) scale(0.4); }
+      100% { opacity: 0;   transform: translate(-50%, -50%) scale(1); }
     }
 
     /* ── ABOUT ── */
-    .about p {
-      font-size: 17px;
-      line-height: 1.7;
-      color: #333;
+    #about {
+      background: var(--sand);
+      padding: 100px 48px;
+    }
+
+    #about::after { background: var(--sand); }
+
+    .about-inner {
+      max-width: 900px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--earth);
+      margin-bottom: 20px;
+    }
+
+    .about-left h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--bark);
+    }
+
+    .about-left h2 em {
+      font-style: italic;
+      color: var(--water);
+    }
+
+    .about-right p {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--bark);
+      margin-bottom: 20px;
+    }
+
+    .about-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 36px;
+      padding-top: 36px;
+      border-top: 1px solid var(--stone);
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--water);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
 
     /* ── PROJECTS ── */
+    #projects {
+      background: var(--bark);
+      padding: 100px 48px;
+      flex-direction: column;
+    }
+
+    #projects::after { background: var(--bark); }
+
+    .projects-header {
+      max-width: 900px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 48px;
+    }
+
+    .projects-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 400;
+      color: var(--sand);
+    }
+
+    .projects-header span {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--earth);
+    }
+
     .projects-grid {
+      max-width: 900px;
+      width: 100%;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      gap: 2px;
+      background: var(--deep);
     }
 
     .project-card {
-      border: 1px solid #eee;
-      border-radius: 8px;
-      padding: 24px;
+      background: var(--bark);
+      padding: 36px 32px;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
     }
 
-    .project-card .tag {
-      font-size: 11px;
+    .project-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--water);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .project-card:hover { background: #3a2c1f; }
+    .project-card:hover::before { transform: scaleX(1); }
+
+    .card-tag {
+      font-size: 10px;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #999;
-      margin-bottom: 8px;
+      color: var(--water);
+      margin-bottom: 12px;
     }
 
-    .project-card h3 {
-      font-size: 18px;
-      margin-bottom: 8px;
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--sand);
+      margin-bottom: 10px;
     }
 
-    .project-card p {
-      font-size: 14px;
-      color: #555;
-      line-height: 1.6;
+    .card-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--stone);
+      line-height: 1.65;
     }
 
     /* ── CONTACT ── */
-    .contact p {
-      font-size: 17px;
-      color: #333;
+    #contact {
+      background: var(--deep);
+      flex-direction: column;
+      text-align: center;
+      padding: 100px 48px;
+    }
+
+    #contact::after { display: none; }
+
+    .contact-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--foam);
+      margin-bottom: 20px;
+    }
+
+    #contact h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 400;
+      color: var(--sand);
       margin-bottom: 24px;
+      line-height: 1.1;
+    }
+
+    #contact h2 em {
+      font-style: italic;
+      color: var(--foam);
+    }
+
+    #contact p {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--stone);
+      max-width: 420px;
+      line-height: 1.7;
+      margin: 0 auto 48px;
     }
 
     .contact-links {
       display: flex;
       gap: 16px;
+      justify-content: center;
       flex-wrap: wrap;
     }
 
-    /* ── FOOTER ── */
+    .btn-light {
+      border: 1px solid var(--stone);
+      color: var(--sand);
+    }
+
+    .btn-light:hover {
+      background: var(--earth);
+      border-color: var(--earth);
+      color: var(--cream);
+    }
+
+    .btn-water {
+      background: var(--water);
+      color: var(--cream);
+    }
+
+    .btn-water:hover { background: #3d6a7a; }
+
     footer {
-      padding: 32px 0;
-      border-top: 1px solid #eee;
-      font-size: 13px;
-      color: #aaa;
+      position: relative;
+      z-index: 10;
+      background: var(--deep);
+      text-align: center;
+      padding: 24px;
+      border-top: 1px solid #3a2c1f;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes riseUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 32px;
-      }
-
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
+    @media (max-width: 700px) {
+      nav { padding: 20px 24px; }
+      nav ul { gap: 20px; }
+      #hero, #about, #projects, #contact { padding: 80px 24px; }
+      .about-inner { grid-template-columns: 1fr; gap: 40px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .projects-header { flex-direction: column; gap: 8px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
+  <canvas id="water-canvas"></canvas>
+
   <nav>
-    <span class="logo">Aidan Rikic</span>
+    <div class="nav-logo">Aidan</div>
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
@@ -199,65 +489,159 @@
   </nav>
 
   <!-- HERO -->
-  <section class="hero">
-    <h1>Computer Science &amp;<br>Machine Learning</h1>
-    <p>
-      I'm a graduating senior at UC San Diego building at the intersection
-      of AI, product design, and human behavior.
+  <section id="hero">
+    <div class="hero-eyebrow">Cognitive Science · Machine Learning · UCSD</div>
+    <h1 class="hero-name">Aidan<br><em>Rikic</em></h1>
+    <p class="hero-sub">
+      Designer and developer working at the intersection of AI, product, and human behavior.
     </p>
-    <div class="hero-links">
-      <a href="#projects" class="btn btn-primary">See my work</a>
-      <a href="#contact" class="btn">Get in touch</a>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-solid">See my work</a>
+      <a href="#contact" class="btn btn-outline">Get in touch</a>
+    </div>
+    <div class="ripple-rings">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
     </div>
   </section>
 
   <!-- ABOUT -->
-  <section id="about" class="about">
-    <h2>About</h2>
-    <p>
-      I study Cognitive Science with a focus in Machine Learning and a minor in
-      Computer Science at UCSD. I'm interested in how intelligent systems can
-      be designed to feel intuitive and human — whether that's an AI product,
-      a mobile app, or a data pipeline. Outside of that, I'm a Division I
-      swimmer and have served as team captain.
-    </p>
+  <section id="about">
+    <div class="about-inner reveal">
+      <div class="about-left">
+        <div class="about-label">About me</div>
+      </div>
+      <div class="about-right">
+        <p>
+          I study Cognitive Science with a Machine Learning focus at UC San Diego,
+          graduating in 2026. I'm drawn to the challenge of making AI systems that
+          feel natural and human, not just functional.
+        </p>
+        <p>
+          Outside of that I'm a Division I swimmer and team captain.
+          The discipline of the pool carries over into everything I build.
+        </p>
+        <div class="about-stats">
+          <div>
+            <div class="stat-num">D1</div>
+            <div class="stat-label">Swimmer</div>
+          </div>
+          <div>
+            <div class="stat-num">4+</div>
+            <div class="stat-label">years learning and building</div>
+          </div>
+          <div>
+            <div class="stat-num">∞</div>
+            <div class="stat-label">Curiosity</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- PROJECTS -->
   <section id="projects">
-    <h2>Projects</h2>
-    <div class="projects-grid">
-
+    <div class="projects-header reveal">
+      <h2>Work</h2>
+      <span>Selected projects</span>
+    </div>
+    <div class="projects-grid reveal">
       <div class="project-card">
-        <div class="tag">Add a project</div>
-        <h3>Your next project</h3>
-        <p>
-          Placeholder for a future project. Replace this card with something
-          you're working on or proud of.
-        </p>
+        <div class="card-tag">UX · Case Study</div>
+        <div class="card-title">Coming soon</div>
+        <p class="card-desc">A UX case study in progress. Product design research and prototyping for a new audience.</p>
       </div>
-
+      <div class="project-card">
+        <div class="card-tag">Web · Design</div>
+        <div class="card-title">Tritons Aquatic Club</div>
+        <p class="card-desc">Club website built to USA Swimming Safe Sport hosting standards. Clean IA for families and officials.</p>
+      </div>
+      <div class="project-card">
+        <div class="card-tag">Mobile · Flutter</div>
+        <div class="card-title">Movie Mind</div>
+        <p class="card-desc">AI-powered movie recommendation app built with Flutter, Gemini API, and Firebase.</p>
+      </div>
     </div>
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="contact">
-    <h2>Contact</h2>
-    <p>
-      I'm currently looking for full-time roles in AI/software engineering
-      and business analytics. Feel free to reach out.
+  <section id="contact">
+    <div class="contact-eyebrow">Let's connect</div>
+    <h2 class="reveal">Open to <em>opportunities.</em></h2>
+    <p class="reveal">
+      Looking for full-time roles in AI, software engineering, and product design.
+      Always happy to talk and learn.
     </p>
-    <div class="contact-links">
-      <a href="mailto:aidanrikic1020@email.com" class="btn">Email</a>
-      <a href="https://linkedin.com/in/aidan-rikic" class="btn" target="_blank">LinkedIn</a>
-      <a href="https://github.com/aidanRik" class="btn" target="_blank">GitHub</a>
+    <div class="contact-links reveal">
+      <a href="mailto:aidanrikic1020@email.com" class="btn btn-light">Email me</a>
+      <a href="https://linkedin.com/in/aidan-rikic" class="btn btn-water" target="_blank">LinkedIn</a>
+      <a href="https://github.com/aidanRik" class="btn btn-light" target="_blank">GitHub</a>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2026 Aidan. Built with HTML & CSS.</p>
-  </footer>
+  <footer>© 2026 Aidan · Built with HTML &amp; CSS</footer>
 
+  <script>
+    // ── ANIMATED WATER ──
+    const canvas = document.getElementById('water-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, t = 0;
+
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const layers = [
+      { amp: 18, freq: 0.012, speed: 0.018, y: 0.38, color: '#4a7c8e', alpha: 0.25 },
+      { amp: 12, freq: 0.018, speed: 0.025, y: 0.50, color: '#6b9aaa', alpha: 0.18 },
+      { amp: 22, freq: 0.008, speed: 0.012, y: 0.62, color: '#3d6a7a', alpha: 0.20 },
+      { amp:  8, freq: 0.028, speed: 0.035, y: 0.72, color: '#a8c4cc', alpha: 0.12 },
+    ];
+
+    function drawWater() {
+      ctx.clearRect(0, 0, W, H);
+      layers.forEach(l => {
+        ctx.beginPath();
+        ctx.moveTo(0, H);
+        for (let x = 0; x <= W; x += 4) {
+          const y = l.y * H
+            + Math.sin(x * l.freq + t * l.speed * 60) * l.amp
+            + Math.sin(x * l.freq * 1.7 + t * l.speed * 40) * (l.amp * 0.4);
+          ctx.lineTo(x, y);
+        }
+        ctx.lineTo(W, H);
+        ctx.closePath();
+        ctx.fillStyle = l.color;
+        ctx.globalAlpha = l.alpha;
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+    }
+
+    function animate(ts) {
+      t = ts * 0.001;
+      drawWater();
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+
+    // ── SCROLL REVEAL ──
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    reveals.forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
